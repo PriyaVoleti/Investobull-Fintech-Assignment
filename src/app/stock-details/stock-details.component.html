@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Details</title>
+</head>
+<body>
+<div *ngIf="stock" class="stock-details-container">
+    <h2>Stock Details</h2>
+    <table class="stock-details-table">
+      <tr>
+        <th>Symbol</th>
+        <td>{{ stock.symbol }}</td>
+      </tr>
+
+      <tr>
+        <th>Last Trade Price (LTP)</th>
+        <td>{{ stock.ltp }}</td>
+      </tr>
+
+      <tr>
+        <th>Open</th>
+        <td>{{ stock.open }}</td>
+      </tr>
+
+      <tr>
+        <th>High</th>
+        <td>{{ stock.high }}</td>
+      </tr>
+
+      <tr>
+        <th>Low</th>
+        <td>{{ stock.low }}</td>
+      </tr>
+
+      <tr>
+        <th>Close</th>
+        <td>{{ stock.close }}</td>
+      </tr>
+
+      <tr>
+        <th>Change</th>
+        <td>{{ stock.change }}</td>
+      </tr>
+
+      <tr>
+        <th>Percentage Change</th>
+        <td>{{ stock.pctChange }}</td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="!stock" class="error-message">
+    <p>Stock details not found.</p>
+  </div>
+</body>
+</html>
+
+
+

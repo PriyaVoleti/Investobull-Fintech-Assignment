@@ -1,0 +1,31 @@
+.stock-details-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stock-details-table {
+    width: 70%;
+    border-width: 1px;
+    border-color: gray;
+    border-style: double;
+  }
+  
+  .stock-details-table th,
+  .stock-details-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .stock-details-table th {
+    text-align: left;
+    background-color: #f2f2f2;
+  }
+  
+  .error-message {
+    margin: 20px;
+    color: red;
+    font-weight: bold;
+  }
+  

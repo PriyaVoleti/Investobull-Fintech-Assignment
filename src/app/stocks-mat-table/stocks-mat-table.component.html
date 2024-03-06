@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+              Symbol <mat-icon matTooltip="Stock Symbol">info</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let element" class="symbol-cell" (click)="goToStockDetails(element)">
+              <span class="stock-symbol-badge">{{element.symbol | slice:0:1}}</span> {{element.symbol}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ltp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+              LTP <mat-icon matTooltip="Last Trade Price">info</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let element" [ngStyle]="{'color': getLtpColor(element.pctChange)}">
+              {{element.ltp}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="momentum">
+            <th mat-header-cell *matHeaderCellDef class="custom-header-cell">
+              Momentum <mat-icon matTooltip="Rate of Price Change">info</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="momentum-container">
+                <span class="momentum-value">{{ element.momentum }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="open">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+              Open <mat-icon matTooltip="Opening Price">info</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.open}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="deviationFromPivots">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+              Deviation from Pivots <mat-icon matTooltip="Deviation from Pivot Points">info</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="pivot-container">
+                <div class="pivot-bar">
+                  <div class="pivot-bar-fill" [ngStyle]="getPivotBarPosition(element)"></div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="todaysRange">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+              Today's Range <mat-icon matTooltip="Range of Price for Today">info</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="range-container">
+                <span>{{ element.low }}</span>
+                <div class="range-bar">
+                  <div class="range-bar-fill" [style.width]="getRangeBarWidth(element)"></div>
+                </div>
+                <span>{{ element.high }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ohl">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header-cell">
+              OHL <mat-icon matTooltip="Open/High/Low">info</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'buy-signal': element.open === element.low, 'sell-signal': element.open === element.high}">
+              <div *ngIf="element.open === element.low">
+                <mat-icon aria-hidden="false" aria-label="Buy signal">north</mat-icon> Open=Low
+              </div>
+              <div *ngIf="element.open === element.high">
+                <mat-icon aria-hidden="false" aria-label="Sell signal">south</mat-icon> Open=High
+              </div>
+              <div *ngIf="element.open !== element.low && element.open !== element.high">
+                {{ element.open }}/{{ element.high }}/{{ element.low }}
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="custom-header-row"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</body>
+</html>
